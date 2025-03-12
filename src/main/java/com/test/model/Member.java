@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,15 +18,16 @@ import java.time.LocalDateTime;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "members")
-@IdClass(MemberId.class)
+@Table(name = "members", uniqueConstraints = @UniqueConstraint(columnNames = {"community_id", "user_id"}))
 public class Member {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     private Community community;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -38,10 +38,4 @@ public class Member {
 
     @Column(name = "joined_at")
     private LocalDateTime joinedAt;
-}
-
-@Data
-class MemberId implements Serializable {
-    private Long community;
-    private Long user;
 }
