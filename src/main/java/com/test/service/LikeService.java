@@ -1,9 +1,9 @@
 package com.test.service;
 
-import com.test.dto.LikeDto;
-import com.test.mapper.LikeMapper;
-import com.test.model.Like;
-import com.test.repository.LikeRepository;
+import com.test.database.dto.LikeDto;
+import com.test.database.mapper.LikeMapper;
+import com.test.database.model.Like;
+import com.test.database.repository.LikeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

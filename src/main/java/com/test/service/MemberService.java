@@ -1,9 +1,9 @@
 package com.test.service;
 
-import com.test.dto.MemberDto;
-import com.test.mapper.MemberMapper;
-import com.test.model.Member;
-import com.test.repository.MemberRepository;
+import com.test.database.dto.MemberDto;
+import com.test.database.mapper.MemberMapper;
+import com.test.database.model.Member;
+import com.test.database.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

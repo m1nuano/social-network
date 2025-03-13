@@ -1,9 +1,9 @@
 package com.test.service;
 
-import com.test.dto.CommunityDto;
-import com.test.mapper.CommunityMapper;
-import com.test.model.Community;
-import com.test.repository.CommunityRepository;
+import com.test.database.dto.CommunityDto;
+import com.test.database.mapper.CommunityMapper;
+import com.test.database.model.Community;
+import com.test.database.repository.CommunityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

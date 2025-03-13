@@ -1,9 +1,9 @@
 package com.test.service;
 
-import com.test.dto.CommentDto;
-import com.test.mapper.CommentMapper;
-import com.test.model.Comment;
-import com.test.repository.CommentRepository;
+import com.test.database.dto.CommentDto;
+import com.test.database.mapper.CommentMapper;
+import com.test.database.model.Comment;
+import com.test.database.repository.CommentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

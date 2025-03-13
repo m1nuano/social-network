@@ -1,12 +1,12 @@
 package com.test.service;
 
-import com.test.dto.FriendshipDto;
-import com.test.mapper.FriendshipMapper;
-import com.test.model.Friendship;
-import com.test.model.User;
-import com.test.model.enums.FriendshipStatus;
-import com.test.repository.FriendshipRepository;
-import com.test.repository.UserRepository;
+import com.test.database.dto.FriendshipDto;
+import com.test.database.mapper.FriendshipMapper;
+import com.test.database.model.Friendship;
+import com.test.database.model.User;
+import com.test.database.model.enums.FriendshipStatus;
+import com.test.database.repository.FriendshipRepository;
+import com.test.database.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

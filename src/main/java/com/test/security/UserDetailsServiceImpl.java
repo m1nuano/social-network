@@ -1,7 +1,7 @@
 package com.test.security;
 
-import com.test.model.User;
-import com.test.repository.UserRepository;
+import com.test.database.model.User;
+import com.test.database.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

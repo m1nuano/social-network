@@ -1,9 +1,9 @@
 package com.test.service;
 
-import com.test.dto.PostDto;
-import com.test.mapper.PostMapper;
-import com.test.model.Post;
-import com.test.repository.PostRepository;
+import com.test.database.dto.PostDto;
+import com.test.database.mapper.PostMapper;
+import com.test.database.model.Post;
+import com.test.database.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

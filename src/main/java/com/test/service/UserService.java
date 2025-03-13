@@ -1,10 +1,11 @@
 package com.test.service;
 
-import com.test.dto.UserDto;
-import com.test.mapper.UserMapper;
-import com.test.model.User;
-import com.test.model.enums.UserRole;
-import com.test.repository.UserRepository;
+import com.test.database.dto.UserDto;
+import com.test.database.mapper.UserMapper;
+import com.test.database.model.User;
+import com.test.database.model.enums.UserRole;
+import com.test.database.repository.UserRepository;
+import com.test.database.requests.UserSearchRequest;
 import com.test.security.UserImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -86,15 +89,59 @@ public class UserService {
         return true;
     }
 
+    @Transactional
+    public UserDto updateProfile(UserDto userDto) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                                  .orElseThrow(() -> new RuntimeException("The user was not found"));
+
+        if (userDto.getFirstName() != null) user.setFirstName(userDto.getFirstName());
+        if (userDto.getLastName() != null) user.setLastName(userDto.getLastName());
+        if (userDto.getEmail() != null) user.setEmail(userDto.getEmail());
+        if (userDto.getBio() != null) user.setBio(userDto.getBio());
+
+        if(!user.getBio().equals(userDto.getBio()) || !user.getEmail().equals(userDto.getEmail())
+                || !user.getLastName().equals(userDto.getLastName()) || !user.getFirstName().equals(userDto.getFirstName())) {
+            user.setUpdatedAt(LocalDateTime.now());
+        }
+
+        User updatedUser = userRepository.save(user);
+        log.info("User {} updated profile", username);
+
+        return userMapper.toDto(updatedUser);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDto getProfile() {
+        User user = getCurrentUser();
+        return userMapper.toDto(user);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDto> searchUsers(UserSearchRequest request) {
+        List<User> users = userRepository.searchUsers(
+                isNotEmpty(request.getUsername()) ? request.getUsername() : null,
+                isNotEmpty(request.getEmail()) ? request.getEmail() : null,
+                isNotEmpty(request.getFirstName()) ? request.getFirstName() : null,
+                isNotEmpty(request.getLastName()) ? request.getLastName() : null
+        );
+        return users.stream().map(userMapper::toDto).limit(100).collect(Collectors.toList());
+    }
+
+    private boolean isNotEmpty(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
+
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+                .orElseThrow(() -> new UsernameNotFoundException("The user was not found"));
 
     }
 
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+                .orElseThrow(() -> new UsernameNotFoundException("The user was not found"));
         return new UserImpl(user);
     }
 
@@ -113,7 +160,7 @@ public class UserService {
 
     public void getAdmin() {
         var user = getCurrentUser();
-        user.setUserRole(UserRole.ADMIN);
+        user.setUserRole(UserRole.ROLE_ADMIN);
         userRepository.save(user);
     }
 }

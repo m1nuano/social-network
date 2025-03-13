@@ -31,10 +31,10 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableCaching
 @ComponentScan(basePackages = {
-        "com.test",
+        "com.test.database"
 })
-@EnableJpaRepositories(basePackages = "com.test")
-@EntityScan("com.test")
+@EnableJpaRepositories(basePackages = "com.test.database.repository")
+@EntityScan("com.test.database.model")
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
@@ -56,11 +56,8 @@ public class SecurityConfiguration {
                 }))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/auth/*").permitAll()
-
-                        .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.OPTIONS).hasRole("ADMIN")
+                        .requestMatchers("/app/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                 )

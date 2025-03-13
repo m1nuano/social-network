@@ -1,10 +1,9 @@
 package com.test.security;
 
-import com.test.model.User;
-import com.test.model.enums.UserRole;
-import com.test.requests.JwtAuthenticationResponse;
-import com.test.requests.SignInRequest;
-import com.test.requests.SignUpRequest;
+import com.test.database.model.User;
+import com.test.database.model.enums.UserRole;
+import com.test.database.requests.SignInRequest;
+import com.test.database.requests.SignUpRequest;
 import com.test.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class AuthenticationService {
                 .lastName(request.getLastName())
                 .bio(request.getBio())
                 .createdAt(LocalDateTime.now())
-                .userRole(UserRole.USER)
+                .userRole(UserRole.ROLE_USER)
                 .build();
 
         userService.addUser(user);

@@ -1,9 +1,9 @@
 package com.test.service;
 
-import com.test.dto.MessageDto;
-import com.test.mapper.MessageMapper;
-import com.test.model.Message;
-import com.test.repository.MessageRepository;
+import com.test.database.dto.MessageDto;
+import com.test.database.mapper.MessageMapper;
+import com.test.database.model.Message;
+import com.test.database.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
