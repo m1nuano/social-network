@@ -11,8 +11,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostDto {
+public class CommunityPostDto {
     private Long id;
+
+    @NotNull(message = "Community ID must not be null")
+    private Long communityId;
 
     @NotNull(message = "User ID must not be null")
     private Long userId;

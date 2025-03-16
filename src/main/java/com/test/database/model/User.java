@@ -1,5 +1,7 @@
 package com.test.database.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.test.database.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +12,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +34,7 @@ public class User {
     private String email;
 
     @Column(name = "password_hash")
+    @JsonIgnore
     private String password;
 
     @Column(name = "first_name")
@@ -43,12 +47,18 @@ public class User {
     private String bio;
 
     @Column(name = "created_at")
+    @JsonIgnore
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @JsonIgnore
     private LocalDateTime updatedAt;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<Member> memberships;
 }

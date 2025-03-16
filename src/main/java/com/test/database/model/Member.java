@@ -1,5 +1,6 @@
 package com.test.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.test.database.model.enums.MemberRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class Member {
 
     @ManyToOne
     @JoinColumn(name = "community_id", referencedColumnName = "id")
+    @JsonIgnore
     private Community community;
 
     @ManyToOne

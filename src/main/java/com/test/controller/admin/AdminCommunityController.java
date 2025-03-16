@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/communities")
-public class CommunityController {
+public class AdminCommunityController {
 
     private final CommunityService communityService;
 

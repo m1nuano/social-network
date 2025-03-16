@@ -1,14 +1,12 @@
 package com.test.database.model;
 
-import com.test.database.model.enums.LikeObjectType;
-import com.test.database.model.enums.LikeType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.LocalDateTime;
 
@@ -19,26 +17,22 @@ import java.time.LocalDateTime;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "likes")
-public class Like {
+@Table(name = "community_posts")
+public class CommunityPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    private Community community;
+
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "object_id")
-    private Long objectId;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "object_type")
-    private LikeObjectType objectType;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "like_type")
-    private LikeType likeType;
+    @Column(name = "post_content")
+    private String postContent;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

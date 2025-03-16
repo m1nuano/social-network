@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
-public class UserController {
+public class AdminUserController {
 
     private final UserService userService;
 
@@ -57,11 +57,5 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @PutMapping("/profile")
-    public ResponseEntity<UserDto> updateProfile(@Valid @RequestBody UserDto userDto) {
-        UserDto updatedUser = userService.updateProfile(userDto);
-        return ResponseEntity.ok(updatedUser);
     }
 }

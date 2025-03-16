@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/friendships")
-public class FriendshipController {
+public class AdminFriendshipController {
 
     private final FriendshipService friendshipService;
 
@@ -31,7 +31,7 @@ public class FriendshipController {
     @PostMapping("/request")
     public ResponseEntity<FriendshipDto> sendFriendRequest(@RequestParam("senderId") Long senderId,
                                                            @RequestParam("receiverId") Long receiverId) {
-        Friendship friendship = friendshipService.sendFriendRequest(senderId, receiverId);
+        Friendship friendship = friendshipService.adminSendFriendRequest(senderId, receiverId);
         return ResponseEntity.status(HttpStatus.CREATED).body(friendshipService.toDTO(friendship));
     }
 

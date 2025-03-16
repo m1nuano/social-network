@@ -18,7 +18,7 @@ CREATE TABLE friendships (
                              id SERIAL PRIMARY KEY,
                              sender_id INT,
                              receiver_id INT,
-                             status varchar, -- PENDING, ACCEPTED, DECLINED
+                             status varchar, -- PENDING, ACCEPTED, DECLINED, BLOCKED
                              created_at TIMESTAMP,
                              FOREIGN KEY (sender_id) REFERENCES Users(id),
                              FOREIGN KEY (receiver_id) REFERENCES Users(id)
@@ -52,29 +52,31 @@ CREATE TABLE comments (
                           FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-CREATE TABLE likes (
-                       id SERIAL PRIMARY KEY,
-                       user_id INT,
-                       object_id INT,
-                       object_type varchar, -- POST, COMMENT
-                       like_type VARCHAR, -- LIKE, DISLIKE
-                       created_at TIMESTAMP,
-                       FOREIGN KEY (user_id) REFERENCES Users(id)
-);
-
 CREATE TABLE communities (
-                             id SERIAL PRIMARY KEY,
-                             community_name varchar,
-                             description TEXT,
-                             created_at TIMESTAMP
+                    id SERIAL PRIMARY KEY,
+                    community_name varchar,
+                    description TEXT,
+                    created_at TIMESTAMP
 );
 
 CREATE TABLE members (
-                                   community_id INT,
-                                   user_id INT,
-                                   member_role varchar, -- ADMIN, MEMBER
-                                   joined_at TIMESTAMP,
-                                   PRIMARY KEY (community_id, user_id),
-                                   FOREIGN KEY (community_id) REFERENCES Communities(id),
-                                   FOREIGN KEY (user_id) REFERENCES Users(id)
+                         id SERIAL PRIMARY KEY,
+                         community_id INT NOT NULL,
+                         user_id INT NOT NULL,
+                         member_role VARCHAR, -- OWNER, ADMIN, MEMBER, BLOCKED
+                         joined_at TIMESTAMP,
+                         UNIQUE (community_id, user_id),
+                         FOREIGN KEY (community_id) REFERENCES communities(id),
+                         FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE community_posts (
+                                 id SERIAL PRIMARY KEY,
+                                 community_id INT,
+                                 user_id INT,
+                                 post_content varchar,
+                                 created_at TIMESTAMP,
+                                 FOREIGN KEY (user_id) REFERENCES Users(id),
+                                 FOREIGN KEY (community_id) REFERENCES Communities(id)
+);
+

@@ -4,7 +4,10 @@ import com.test.database.dto.PostDto;
 import com.test.database.mapper.PostMapper;
 import com.test.database.model.Post;
 import com.test.database.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +15,11 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
-
-    public PostService(PostRepository postRepository, PostMapper postMapper) {
-        this.postRepository = postRepository;
-        this.postMapper = postMapper;
-    }
 
     public PostDto toDTO(Post post) {
         return postMapper.toDto(post);
@@ -42,10 +41,10 @@ public class PostService {
     public Post getPostById(Long postId) {
         log.info("Fetching post with ID: {}", postId);
         return postRepository.findById(postId)
-                .orElseThrow(() -> {
-                    log.error("Post not found with ID: {}", postId);
-                    return new RuntimeException("Post not found with ID: " + postId);
-                });
+                             .orElseThrow(() -> {
+                                 log.error("Post not found with ID: {}", postId);
+                                 return new RuntimeException("Post not found with ID: " + postId);
+                             });
     }
 
     @Transactional(readOnly = true)
@@ -78,5 +77,12 @@ public class PostService {
         postRepository.deleteById(postId);
         log.info("Post with ID: {} successfully deleted", postId);
         return true;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostDto> getAllPosts(Pageable pageable) {
+        log.info("Fetching all posts with pagination");
+        Page<Post> posts = postRepository.findAll(pageable);
+        return posts.map(postMapper::toDto);
     }
 }

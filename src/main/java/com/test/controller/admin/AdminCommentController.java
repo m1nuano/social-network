@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/comments")
-public class CommentController {
+public class AdminCommentController {
 
     private final CommentService commentService;
 
@@ -51,7 +51,7 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable("id") Long id) {
-        boolean isDeleted = commentService.deleteComment(id);
+        boolean isDeleted = commentService.deleteCommentForAdmin(id);
         if (isDeleted) {
             return ResponseEntity.noContent().build();
         } else {

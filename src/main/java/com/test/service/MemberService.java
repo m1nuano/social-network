@@ -4,6 +4,7 @@ import com.test.database.dto.MemberDto;
 import com.test.database.mapper.MemberMapper;
 import com.test.database.model.Member;
 import com.test.database.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +13,11 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
-
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper) {
-        this.memberRepository = memberRepository;
-        this.memberMapper = memberMapper;
-    }
 
     public MemberDto toDTO(Member member) {
         return memberMapper.toDto(member);
@@ -42,10 +39,10 @@ public class MemberService {
     public Member getMemberById(Long memberId) {
         log.info("Fetching member with ID: {}", memberId);
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> {
-                    log.error("Member not found with ID: {}", memberId);
-                    return new RuntimeException("Member not found with ID: " + memberId);
-                });
+                               .orElseThrow(() -> {
+                                   log.error("Member not found with ID: {}", memberId);
+                                   return new RuntimeException("Member not found with ID: " + memberId);
+                               });
     }
 
     @Transactional(readOnly = true)

@@ -1,17 +1,11 @@
-package com.test.database.dto;
+package com.test.database.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class CommunityDto {
-    private Long id;
+public class CreateCommunityRequest {
 
     @NotBlank(message = "Community name must not be empty")
     @Size(max = 100, message = "Maximum 100 characters")
@@ -20,6 +14,4 @@ public class CommunityDto {
     @NotBlank(message = "Community description must not be empty")
     @Size(max = 200, message = "Maximum 200 characters")
     private String description;
-
-    private LocalDateTime createdAt;
 }

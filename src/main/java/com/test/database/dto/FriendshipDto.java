@@ -1,6 +1,7 @@
 package com.test.database.dto;
 
 import com.test.database.model.enums.FriendshipStatus;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,9 +12,15 @@ import java.time.LocalDateTime;
 @Builder
 public class FriendshipDto {
     private Long id;
-    private Long senderId;
-    private Long receiverId;
-    private FriendshipStatus status;
-    private LocalDateTime createdAt;
 
+    @NotNull(message = "Sender ID must not be null")
+    private Long senderId;
+
+    @NotNull(message = "Receiver ID must not be null")
+    private Long receiverId;
+
+    @NotNull(message = "Friendship status must not be null")
+    private FriendshipStatus status;
+
+    private LocalDateTime createdAt;
 }

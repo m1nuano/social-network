@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/posts")
-public class PostController {
+public class AdminPostController {
 
     private final PostService postService;
 
