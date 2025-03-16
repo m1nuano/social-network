@@ -7,6 +7,9 @@ import lombok.*;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserProfileDto {
     @NotNull(message = "User must not be null")
     private UserDto user;

@@ -2,7 +2,6 @@ spring:
   servlet:
     context-parameters:
       contextClass: org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-      contextConfigLocation: com.test.task_10.AppConfig
     main:
       allow-bean-definition-overriding: true
 

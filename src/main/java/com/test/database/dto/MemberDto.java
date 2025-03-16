@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class MemberDto {
+    private Long id;
+
     @NotNull(message = "Community ID must not be null")
     private Long communityId;
 
