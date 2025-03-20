@@ -143,7 +143,7 @@ class PostServiceTest {
         when(postRepository.findAll(pageable)).thenReturn(postPage);
         when(postMapper.toDto(any(Post.class))).thenReturn(postDto);
 
-        Page<PostDto> result = postService.getAllPosts(pageable);
+        Page<PostDto> result = postService.getAllPostsPage(pageable);
 
         assertEquals(1, result.getTotalElements());
         assertEquals(postDto.getId(), result.getContent().get(0).getId());

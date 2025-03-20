@@ -1,9 +1,10 @@
 INSERT INTO users (username, email, password_hash, first_name, last_name, bio, created_at, updated_at, user_role)
--- TODO: Password need to be real hashed
+
+-- password = user
 VALUES
-    ('john_doe', 'john@example.com', 'hash1', 'John', 'Doe', 'Hello, I am John', NOW(), NOW(), 'ROLE_USER'),
-    ('jane_smith', 'jane@example.com', 'hash2', 'Jane', 'Smith', 'Hello, I am Jane', NOW(), NOW(), 'ROLE_USER'),
-    ('admin', 'admin@example.com', 'hash3', 'Admin', 'User', 'Administrator account', NOW(), NOW(), 'ROLE_ADMIN');
+    ('john_doe', 'john@example.com', '$2a$10$HPmoB.hvQpjPRqVkeTRGgOtT2MpXIXu1sXEzYe06ELNU4i9i1AkFG', 'John', 'Doe', 'Hello, I am John', NOW(), NOW(), 'ROLE_USER'),
+    ('jane_smith', 'jane@example.com', '$2a$10$HPmoB.hvQpjPRqVkeTRGgOtT2MpXIXu1sXEzYe06ELNU4i9i1AkFG', 'Jane', 'Smith', 'Hello, I am Jane', NOW(), NOW(), 'ROLE_USER'),
+    ('admin', 'admin@example.com', '$2a$10$HPmoB.hvQpjPRqVkeTRGgOtT2MpXIXu1sXEzYe06ELNU4i9i1AkFG', 'Admin', 'User', 'Administrator account', NOW(), NOW(), 'ROLE_ADMIN');
 
 INSERT INTO friendships (sender_id, receiver_id, status, created_at)
 VALUES

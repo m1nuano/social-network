@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: socialnetwork_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_DB: socialnetwork
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./src/main/resources/db/db-create.sql:/docker-entrypoint-initdb.d/db-create.sql
+      - ./src/main/resources/db/db-fill.sql:/docker-entrypoint-initdb.d/db-fill.sql
+
+  app:
+    build: .
+    container_name: socialnetwork_app
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/socialnetwork
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1111
+    ports:
+      - "8080:8080"

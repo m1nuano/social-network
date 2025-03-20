@@ -9,7 +9,7 @@ import lombok.Data;
 public class SignUpRequest {
 
     @NotBlank(message = "Username must not be empty")
-    @Size(min = 3, max = 100, message = "From 3 to 100 characters")
+    @Size(min = 3, max = 100, message = "Username should contain from 3 to 100 characters")
     private String username;
 
     @NotBlank(message = "Email must not be empty")
@@ -29,7 +29,6 @@ public class SignUpRequest {
     @Size(max = 100, message = "Maximum 100 characters")
     private String lastName;
 
-    @NotBlank(message = "Bio must not be empty")
     @Size(max = 100, message = "Maximum 100 characters")
     private String bio;
 }

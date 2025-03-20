@@ -5,6 +5,7 @@ import com.test.database.dto.CommunityListDto;
 import com.test.database.mapper.CommunityMapper;
 import com.test.database.model.Community;
 import com.test.database.model.Member;
+import com.test.database.model.User;
 import com.test.database.repository.CommunityRepository;
 import com.test.database.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -98,7 +99,7 @@ public class CommunityService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommunityDto> getCommunitiesByUser(com.test.database.model.User user) {
+    public List<CommunityDto> getCommunitiesByUser(User user) {
         log.info("Fetching communities for user with ID: {}", user.getId());
         List<Community> communities = communityRepository.findByUserInMembers(user);
         return communities.stream()

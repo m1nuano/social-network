@@ -1,3 +1,5 @@
 .idea
 target
 logs
+postgres-data
+.idea/encodings.xml

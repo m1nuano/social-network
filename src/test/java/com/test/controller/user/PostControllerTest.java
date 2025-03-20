@@ -85,7 +85,7 @@ class PostControllerTest {
         List<PostDto> posts = Arrays.asList(testPostDto);
         Page<PostDto> postPage = new PageImpl<>(posts, PageRequest.of(page, size), posts.size());
 
-        Mockito.when(postService.getAllPosts(PageRequest.of(page, size))).thenReturn(postPage);
+        Mockito.when(postService.getAllPostsPage(PageRequest.of(page, size))).thenReturn(postPage);
 
         ResponseEntity<Page<PostDto>> response = postController.getAllPosts(page, size);
 

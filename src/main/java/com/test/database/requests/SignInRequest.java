@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 public class SignInRequest {
-    @Size(min = 5, max = 50)
+    @Size(min = 3, max = 100, message = "Username should contain from 3 to 100 characters")
     @NotBlank
     private String username;
 
-    @Size(min = 4, max = 255)
+    @Size(max = 100, message = "Maximum 100 characters")
     @NotBlank
     private String password;
 }

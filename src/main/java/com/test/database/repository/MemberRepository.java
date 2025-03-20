@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface    MemberRepository extends JpaRepository<Member, Long> {
     void deleteByCommunityId(Long communityId);
     List<Member> findByCommunityId(Long communityId);
     long countByCommunityId(Long communityId);

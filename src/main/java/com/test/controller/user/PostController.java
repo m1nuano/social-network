@@ -31,7 +31,7 @@ public class PostController {
     @GetMapping
     public ResponseEntity<Page<PostDto>> getAllPosts(@RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "10") int size) {
-        Page<PostDto> posts = postService.getAllPosts(PageRequest.of(page, size));
+        Page<PostDto> posts = postService.getAllPostsPage(PageRequest.of(page, size));
         return ResponseEntity.ok(posts);
     }
 

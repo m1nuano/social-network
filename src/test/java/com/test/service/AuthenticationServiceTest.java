@@ -107,7 +107,7 @@ class AuthenticationServiceTest {
         when(userService.addUser(any(User.class))).thenReturn(user);
 
         when(userDetailsService.loadUserByUsername(signUpRequest.getUsername()))
-                .thenReturn(new UserImpl(user));
+                .thenReturn(new UserDetailsImpl(user));
         when(jwtService.generateToken(any(UserDetails.class))).thenReturn(jwtToken);
 
         JwtAuthenticationResponse response = authenticationService.signUp(signUpRequest);
@@ -123,7 +123,7 @@ class AuthenticationServiceTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(null);
         when(userDetailsService.loadUserByUsername(signInRequest.getUsername()))
-                .thenReturn(new UserImpl(user));
+                .thenReturn(new UserDetailsImpl(user));
         when(jwtService.generateToken(any(UserDetails.class))).thenReturn(jwtToken);
 
         JwtAuthenticationResponse response = authenticationService.signIn(signInRequest);

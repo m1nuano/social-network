@@ -10,14 +10,11 @@ import com.test.database.model.enums.UserRole;
 import com.test.database.repository.UserRepository;
 import com.test.database.requests.EditProfileRequest;
 import com.test.database.requests.UserSearchRequest;
-import com.test.security.UserImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -182,17 +179,6 @@ public class UserService {
         log.info("Fetching user by username: {}", username);
         return userRepository.findByUsername(username)
                              .orElseThrow(() -> new UsernameNotFoundException("The user was not found"));
-    }
-
-    public UserDetails loadUserByUsername(String username) {
-        log.info("Loading user by username: {}", username);
-        User user = userRepository.findByUsername(username)
-                                  .orElseThrow(() -> new UsernameNotFoundException("The user was not found"));
-        return new UserImpl(user);
-    }
-
-    public UserDetailsService userDetailsService() {
-        return this::loadUserByUsername;
     }
 
     public User getCurrentUser() {

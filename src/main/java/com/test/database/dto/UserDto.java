@@ -17,7 +17,7 @@ public class UserDto {
     private Long id;
 
     @NotBlank(message = "The user name cannot be empty")
-    @Size(min = 3, max = 100, message = "User name should contain from 3 to 100 characters")
+    @Size(min = 3, max = 100, message = "Username should contain from 3 to 100 characters")
     private String username;
 
     @NotBlank(message = "Email cannot be empty")

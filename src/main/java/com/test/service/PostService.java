@@ -80,7 +80,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDto> getAllPosts(Pageable pageable) {
+    public Page<PostDto> getAllPostsPage(Pageable pageable) {
         log.info("Fetching all posts with pagination");
         Page<Post> posts = postRepository.findAll(pageable);
         return posts.map(postMapper::toDto);

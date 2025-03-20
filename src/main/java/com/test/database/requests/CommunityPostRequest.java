@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 public class CommunityPostRequest {
-
     @NotNull(message = "Community ID must not be null")
     private Long communityId;
 

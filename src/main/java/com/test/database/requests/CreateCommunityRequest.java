@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class CreateCommunityRequest {
-
     @NotBlank(message = "Community name must not be empty")
     @Size(max = 100, message = "Maximum 100 characters")
     private String name;
