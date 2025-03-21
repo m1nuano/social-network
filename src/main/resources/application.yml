@@ -1,0 +1,50 @@
+spring:
+  servlet:
+    context-parameters:
+      contextClass: org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+    main:
+      allow-bean-definition-overriding: true
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/socialnetwork
+    username: postgres
+    password: 1111
+
+  jpa:
+    open-in-view: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+      use_sql_comments: true
+      enable_lazy_load_no_trans: true
+      cache:
+        use_second_level_cache: true
+        use_query_cache: true
+        region:
+          factory-class: org.hibernate.cache.jcache.JCacheRegionFactory
+      javax:
+        cache:
+          provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
+          missing_cache_strategy: create
+
+logging:
+  level:
+    root: INFO
+    com.test: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  file:
+    name: logs/app.log
+    max-size: 10MB
+    max-history: 25
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+token:
+  signing:
+    key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
