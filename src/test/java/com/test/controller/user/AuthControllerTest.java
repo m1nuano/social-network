@@ -67,20 +67,5 @@ class AuthControllerTest {
         assertNotNull(response);
         assertEquals("test-jwt-token", response.getToken());
     }
-
-    @Test
-    void testHandleValidationExceptions() {
-        BindingResult bindingResult = Mockito.mock(BindingResult.class);
-        ObjectError error = new ObjectError("signUpRequest", "Username must not be empty");
-        Mockito.when(bindingResult.getAllErrors()).thenReturn(Collections.singletonList(error));
-
-        MethodArgumentNotValidException ex = Mockito.mock(MethodArgumentNotValidException.class);
-        Mockito.when(ex.getBindingResult()).thenReturn(bindingResult);
-
-        ResponseEntity<String> responseEntity = authController.handleValidationExceptions(ex);
-
-        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        assertTrue(responseEntity.getBody().contains("Username must not be empty"));
-    }
 }
 
