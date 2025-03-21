@@ -8,6 +8,8 @@ import com.test.database.model.enums.MemberRole;
 import com.test.database.requests.CreateCommunityRequest;
 import com.test.service.CommunityService;
 import com.test.service.MembershipService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,7 @@ public class CommunityController {
     }
 
     @PostMapping
-    public ResponseEntity<CommunityDto> createCommunity(@RequestBody CreateCommunityRequest request) {
+    public ResponseEntity<CommunityDto> createCommunity(@Valid @RequestBody CreateCommunityRequest request) {
         CommunityDto communityDto = membershipService.createCommunity(request.getName(), request.getDescription());
         return ResponseEntity.ok(communityDto);
     }
@@ -62,7 +64,7 @@ public class CommunityController {
     @PostMapping("/{communityId}/members/{memberId}/update-role")
     public ResponseEntity<String> updateMemberRole(@PathVariable("communityId") Long communityId,
                                                    @PathVariable("memberId") Long memberId,
-                                                   @RequestParam("newRole") MemberRole newRole) {
+                                                   @RequestParam("newRole") @NotNull MemberRole newRole) {
         membershipService.updateMemberRole(communityId, memberId, newRole);
         return ResponseEntity.ok("Роль участника изменена на " + newRole);
     }

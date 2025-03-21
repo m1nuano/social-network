@@ -7,6 +7,7 @@ import com.test.database.requests.CommentRequest;
 import com.test.service.CommentService;
 import com.test.service.PostService;
 import com.test.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,7 +42,7 @@ public class CommentController {
     @PostMapping("/{postId}/comments")
     public ResponseEntity<CommentDto> createComment(
             @PathVariable Long postId,
-            @RequestBody CommentRequest commentRequest) {
+            @Valid @RequestBody CommentRequest commentRequest) {
 
         Post post = postService.getPostById(postId);
 

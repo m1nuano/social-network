@@ -27,13 +27,4 @@ public class AuthController {
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
         return authenticationService.signIn(request);
     }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        StringBuilder errorMessage = new StringBuilder();
-        ex.getBindingResult().getAllErrors().forEach(error -> {
-            errorMessage.append(error.getDefaultMessage()).append("\n");
-        });
-        return new ResponseEntity<>(errorMessage.toString(), HttpStatus.BAD_REQUEST);
-    }
 }

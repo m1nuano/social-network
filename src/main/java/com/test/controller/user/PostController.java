@@ -41,7 +41,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostRequest postRequest) {
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostRequest postRequest) {
         Post post = new Post();
         post.setPostContent(postRequest.getPostContent());
         post.setUser(userService.getCurrentUser());
