@@ -38,7 +38,6 @@ docker-compose up -d --build
 This will:
 - Build and start the Spring Boot application
 - Spin up a PostgreSQL database
-- Automatically apply database migrations
 
 Or just run `run.bat`
 
